@@ -22,23 +22,15 @@ open class WebSecurityConfig {
     @Bean
     open fun filterChain(http: HttpSecurity): SecurityFilterChain {
         http
-            .authorizeHttpRequests{
-                authorize -> authorize.mvcMatchers()
-            }
-            .oauth2ResourceServer {
-                it.jwt {
-                    it.jwtAuthenticationConverter()
-                }
+            .sessionManagement {
+                it.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             }
             .csrf().disable()
             .formLogin().disable()
+            .httpBasic().disable()
             .headers().frameOptions().disable()
-            .and()
-            .exceptionHandling()
-            .and()
-            .sessionManagement()
-            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
+        return http.build()
     }
 
 //    override fun configure(http: HttpSecurity) {
