@@ -33,7 +33,7 @@ open class UserServiceImpl(val userRepository: UserRepository, val passwordEncod
                 false
             }
         } else {
-            throw NotValidUserForm("Not Valid User = ${userDto}", userDto)
+            throw NotValidUserForm("Not Valid User = ${userDto}")
         }
     }
 
@@ -47,7 +47,7 @@ open class UserServiceImpl(val userRepository: UserRepository, val passwordEncod
             val save = userRepository.save(user)
             true
         } else {
-            throw NotValidUserForm("Not Valid User = ${userDto}", userDto)
+            throw NotValidUserForm("Not Valid User = ${userDto}")
         }
     }
 
@@ -63,7 +63,7 @@ open class UserServiceImpl(val userRepository: UserRepository, val passwordEncod
                 false
             }
         } else {
-            throw NotValidUserForm("Not Valid User = ${userDto}", userDto)
+            throw NotValidUserForm("Not Valid User = ${userDto}")
         }
     }
 
