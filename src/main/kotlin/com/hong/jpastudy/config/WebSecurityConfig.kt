@@ -1,50 +1,50 @@
 package com.hong.jpastudy.config
 
+import com.hong.jpastudy.config.jwt.JwtAuthenticationFilter
+import com.hong.jpastudy.config.jwt.JwtAuthorizationFilter
+import com.hong.jpastudy.repository.UserRepository
+import lombok.RequiredArgsConstructor
 import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.SecurityFilterChain
 
-@Configuration
 @EnableWebSecurity
-open class WebSecurityConfig {
+@RequiredArgsConstructor
+class WebSecurityConfig(val userRepository: UserRepository) : WebSecurityConfigurerAdapter() {
 
     @Bean
     open fun passwordEncoder(): PasswordEncoder {
-        return BCryptPasswordEncoder()
+            return BCryptPasswordEncoder()
     }
 
-    // WebSecurityConfigurerAdapter deprecated -> https://spring.io/blog/2022/02/21/spring-security-without-the-websecurityconfigureradapter
-    @Bean
-    open fun filterChain(http: HttpSecurity): SecurityFilterChain {
-        http
-            .sessionManagement {
-                it.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            }
-            .csrf().disable()
-            .formLogin().disable()
-            .httpBasic().disable()
-            .headers().frameOptions().disable()
+    override fun configure(http: HttpSecurity?) {
 
-        return http.build()
+        if (http != null) {
+            http
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .csrf().disable()
+                .formLogin().disable()
+                .httpBasic().disable()
+                .headers().frameOptions().disable()
+                .and()
+                .addFilter(getJwtAuthenticationFilter())
+                .addFilter(JwtAuthenticationFilter(authenticationManager()))
+                .addFilter(JwtAuthorizationFilter(userRepository, authenticationManager()))
+        } else {
+            throw RuntimeException("HttpSecurity NullPointerException")
+        }
     }
 
-//    override fun configure(http: HttpSecurity) {
-//        http
-//            .csrf().disable()
-//            .formLogin().disable()
-//            .headers().frameOptions().disable()
-//            .and()
-//            .exceptionHandling()
-//            .authenticationEntryPoint(unauth)
-//            .and()
-//            .sessionManagement()
-//            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-//
-//
-//    }
+    fun getJwtAuthenticationFilter(): JwtAuthenticationFilter {
+        var filter = JwtAuthenticationFilter(authenticationManager())
+        filter.setFilterProcessesUrl("/api/user/login")
+        filter.usernameParameter = "userId"
+        return filter
+    }
 }
