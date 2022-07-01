@@ -45,6 +45,7 @@ dependencies {
     kapt(group = "com.querydsl", name = "querydsl-apt", classifier = "jpa")
     implementation("com.querydsl:querydsl-jpa:5.0.0")
     implementation("io.springfox:springfox-boot-starter:3.0.0")
+    implementation("com.auth0:java-jwt:3.10.3")
 }
 
 tasks.withType<KotlinCompile> {
