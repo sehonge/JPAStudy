@@ -2,7 +2,6 @@ package com.hong.jpastudy.controller
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.hong.jpastudy.Fixture
-import com.hong.jpastudy.SpringMockMvcTestSupport
 import com.hong.jpastudy.dto.InsertNoticeDto
 import com.hong.jpastudy.dto.NoticeDto
 import com.hong.jpastudy.dto.SearchNoticeDto
@@ -19,6 +18,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.data.domain.PageImpl
 import org.springframework.http.MediaType
+import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.ResultActions
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers
@@ -27,10 +27,13 @@ import org.springframework.util.LinkedMultiValueMap
 import org.springframework.util.MultiValueMap
 
 @WebMvcTest(controllers = [NoticeController::class])
-internal class NoticeControllerTest : SpringMockMvcTestSupport() {
+internal class NoticeControllerTest {
 
     @Autowired
     private lateinit var objectMapper: ObjectMapper
+
+    @Autowired
+    lateinit var mockMvc: MockMvc
 
     @MockBean
     lateinit var service: NoticeEditable

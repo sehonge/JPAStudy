@@ -2,7 +2,6 @@ package com.hong.jpastudy.controller
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.hong.jpastudy.Fixture
-import com.hong.jpastudy.SpringMockMvcTestSupport
 import com.hong.jpastudy.dto.UserDto
 import com.hong.jpastudy.exception.NotValidUserForm
 import com.hong.jpastudy.service.UserServiceImpl
@@ -17,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.http.MediaType
+import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
@@ -24,10 +24,13 @@ import org.springframework.util.LinkedMultiValueMap
 import org.springframework.util.MultiValueMap
 
 @WebMvcTest(controllers = [UserController::class])
-internal class UserControllerTest: SpringMockMvcTestSupport() {
+internal class UserControllerTest {
 
     @Autowired
     lateinit var objectMapper: ObjectMapper
+
+    @Autowired
+    lateinit var mockMvc: MockMvc
 
     @MockBean
     lateinit var userService: UserServiceImpl
@@ -98,7 +101,7 @@ internal class UserControllerTest: SpringMockMvcTestSupport() {
                 map.add("password", userDto.password)
 
                 // when
-                Mockito.`when`(userService.login(any())).thenThrow(NotValidUserForm("Not Valid UserForm : ${userDto}", userDto))
+                Mockito.`when`(userService.login(any())).thenThrow(NotValidUserForm("Not Valid UserForm : ${userDto}"))
                 val resultActions = mockMvc.perform(
                     MockMvcRequestBuilders.get(inputURi)
                         .params(map)
@@ -266,7 +269,7 @@ internal class UserControllerTest: SpringMockMvcTestSupport() {
                 val userDto = Fixture.notValidUserDto
 
                 // when
-                Mockito.`when`(userService.register(any())).thenThrow(NotValidUserForm("Not Valid User : ${userDto}", userDto))
+                Mockito.`when`(userService.register(any())).thenThrow(NotValidUserForm("Not Valid User : ${userDto}"))
                 val resultActions = mockMvc.perform(
                     MockMvcRequestBuilders.post(inputUri)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -372,7 +375,7 @@ internal class UserControllerTest: SpringMockMvcTestSupport() {
                 )
 
                 /// when
-                Mockito.`when`(userService.changePassword(any())).thenThrow(NotValidUserForm("Not Valid User = ${userDto}", userDto))
+                Mockito.`when`(userService.changePassword(any())).thenThrow(NotValidUserForm("Not Valid User = ${userDto}"))
                 val resultActions = mockMvc.perform(
                     MockMvcRequestBuilders.put(inputUri)
                         .contentType(MediaType.APPLICATION_JSON)
