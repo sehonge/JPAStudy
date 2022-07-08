@@ -2,11 +2,13 @@ package com.hong.jpastudy.controller
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.hong.jpastudy.Fixture
+import com.hong.jpastudy.config.WebSecurityConfig
 import com.hong.jpastudy.dto.InsertNoticeDto
 import com.hong.jpastudy.dto.NoticeDto
 import com.hong.jpastudy.dto.SearchNoticeDto
 import com.hong.jpastudy.dto.UpdateNoticeDto
 import com.hong.jpastudy.exception.NoneNoticeException
+import com.hong.jpastudy.repository.UserRepository
 import com.hong.jpastudy.service.NoticeEditable
 import com.nhaarman.mockitokotlin2.any
 import org.junit.jupiter.api.DisplayName

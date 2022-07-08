@@ -35,6 +35,9 @@ internal class UserControllerTest {
     @MockBean
     lateinit var userService: UserServiceImpl
 
+//    @MockBean // token 생성을 위한 mockBean
+//    lateinit var repository: UserRepository
+
     @Nested
     @DisplayName("GET 방식으로 통신할 때")
     inner class GetMappingTest {
