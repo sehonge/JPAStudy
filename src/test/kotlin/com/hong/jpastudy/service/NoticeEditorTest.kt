@@ -16,7 +16,9 @@ import org.junit.jupiter.api.assertThrows
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.PageRequest
@@ -25,10 +27,10 @@ import java.util.*
 @SpringBootTest
 internal class NoticeEditorTest {
 
-    @InjectMocks
-    lateinit var service: NoticeEditor
+    @Autowired
+    lateinit var service: NoticeEditable
 
-    @Mock
+    @MockBean
     lateinit var repository: NoticeRepository
 
 

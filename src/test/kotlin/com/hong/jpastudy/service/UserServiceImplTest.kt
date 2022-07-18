@@ -21,20 +21,22 @@ import org.junit.jupiter.params.provider.CsvSource
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.security.crypto.password.PasswordEncoder
 import java.util.*
 
 @SpringBootTest
 internal class UserServiceImplTest {
 
-    @InjectMocks
-    lateinit var userService: UserServiceImpl
+    @Autowired
+    lateinit var userService: UserService
 
-    @Mock
+    @MockBean
     lateinit var userRepository: UserRepository
 
-    @Mock
+    @MockBean
     lateinit var passwordEncoder: PasswordEncoder
 
 
