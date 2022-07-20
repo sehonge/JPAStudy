@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.*
 @Slf4j
 @RestController
 @RequestMapping("/api/notice")
-@RequiredArgsConstructor
 class NoticeController(val noticeService: NoticeEditable) {
 
     @Operation(summary = "특정 공지사항 검색")

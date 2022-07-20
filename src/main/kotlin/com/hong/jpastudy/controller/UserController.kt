@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*
 import javax.servlet.http.HttpServletRequest
 
 @RestController
-@RequiredArgsConstructor
 @RequestMapping("/api/user")
 class UserController(val userService: UserService) {
 
@@ -22,7 +21,9 @@ class UserController(val userService: UserService) {
             val session = request.session
             session.setAttribute(USER_ID, userDto.userId)
             session.maxInactiveInterval = 60 * MINUTE
-            ResponseEntity(userDto, HttpStatus.OK)
+            ResponseEntity
+                .status(HttpStatus.OK)
+                .body(userDto)
         } else {
             ResponseEntity(userDto, HttpStatus.NOT_FOUND)
         }
