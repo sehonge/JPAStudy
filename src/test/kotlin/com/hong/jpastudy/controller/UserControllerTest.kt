@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.hong.jpastudy.Fixture
 import com.hong.jpastudy.dto.UserDto
 import com.hong.jpastudy.exception.NotValidUserForm
+import com.hong.jpastudy.service.UserService
 import com.hong.jpastudy.service.UserServiceImpl
 import com.nhaarman.mockitokotlin2.any
 import org.junit.jupiter.api.DisplayName
@@ -13,7 +14,8 @@ import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 import org.mockito.Mockito
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
+import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
@@ -23,17 +25,16 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import org.springframework.util.LinkedMultiValueMap
 import org.springframework.util.MultiValueMap
 
-@WebMvcTest(controllers = [UserController::class])
-internal class UserControllerTest {
-
-    @Autowired
-    lateinit var objectMapper: ObjectMapper
-
-    @Autowired
-    lateinit var mockMvc: MockMvc
+@SpringBootTest
+@AutoConfigureMockMvc
+//@WebMvcTest
+internal class UserControllerTest @Autowired constructor(
+    val mockMvc: MockMvc,
+    val objectMapper: ObjectMapper
+        ) {
 
     @MockBean
-    lateinit var userService: UserServiceImpl
+    lateinit var userService: UserService
 
 //    @MockBean // token 생성을 위한 mockBean
 //    lateinit var repository: UserRepository

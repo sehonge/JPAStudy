@@ -2,13 +2,11 @@ package com.hong.jpastudy.controller
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.hong.jpastudy.Fixture
-import com.hong.jpastudy.config.WebSecurityConfig
 import com.hong.jpastudy.dto.InsertNoticeDto
 import com.hong.jpastudy.dto.NoticeDto
 import com.hong.jpastudy.dto.SearchNoticeDto
 import com.hong.jpastudy.dto.UpdateNoticeDto
 import com.hong.jpastudy.exception.NoneNoticeException
-import com.hong.jpastudy.repository.UserRepository
 import com.hong.jpastudy.service.NoticeEditable
 import com.nhaarman.mockitokotlin2.any
 import org.junit.jupiter.api.DisplayName
@@ -16,7 +14,8 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
+import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.data.domain.PageImpl
 import org.springframework.http.MediaType
@@ -28,14 +27,13 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import org.springframework.util.LinkedMultiValueMap
 import org.springframework.util.MultiValueMap
 
-@WebMvcTest(controllers = [NoticeController::class])
-internal class NoticeControllerTest {
-
-    @Autowired
-    private lateinit var objectMapper: ObjectMapper
-
-    @Autowired
-    lateinit var mockMvc: MockMvc
+@SpringBootTest
+@AutoConfigureMockMvc
+//@WebMvcTest
+internal class NoticeControllerTest @Autowired constructor(
+    val mockMvc: MockMvc,
+    val objectMapper: ObjectMapper
+) {
 
     @MockBean
     lateinit var service: NoticeEditable
