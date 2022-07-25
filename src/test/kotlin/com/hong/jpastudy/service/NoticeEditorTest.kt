@@ -13,8 +13,6 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import org.mockito.InjectMocks
-import org.mockito.Mock
 import org.mockito.Mockito
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -25,14 +23,12 @@ import org.springframework.data.domain.PageRequest
 import java.util.*
 
 @SpringBootTest
-internal class NoticeEditorTest {
-
-    @Autowired
-    lateinit var service: NoticeEditable
+internal class NoticeEditorTest @Autowired constructor(
+    val service: NoticeEditable
+) {
 
     @MockBean
     lateinit var repository: NoticeRepository
-
 
     val notice: Notice = Fixture.notice
 

@@ -18,8 +18,6 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
-import org.mockito.InjectMocks
-import org.mockito.Mock
 import org.mockito.Mockito
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -28,18 +26,15 @@ import org.springframework.security.crypto.password.PasswordEncoder
 import java.util.*
 
 @SpringBootTest
-internal class UserServiceImplTest {
-
-    @Autowired
-    lateinit var userService: UserService
+internal class UserServiceImplTest @Autowired constructor(
+    val userService: UserService
+) {
 
     @MockBean
     lateinit var userRepository: UserRepository
 
     @MockBean
     lateinit var passwordEncoder: PasswordEncoder
-
-
 
     @Nested
     @DisplayName("로그인을 시도할 때")

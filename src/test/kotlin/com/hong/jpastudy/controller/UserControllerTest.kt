@@ -27,7 +27,6 @@ import org.springframework.util.MultiValueMap
 
 @SpringBootTest
 @AutoConfigureMockMvc
-//@WebMvcTest
 internal class UserControllerTest @Autowired constructor(
     val mockMvc: MockMvc,
     val objectMapper: ObjectMapper
