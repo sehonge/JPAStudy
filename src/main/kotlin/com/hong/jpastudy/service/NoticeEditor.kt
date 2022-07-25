@@ -6,7 +6,6 @@ import com.hong.jpastudy.exception.NoneNoticeException
 import com.hong.jpastudy.exception.NoticeConvertException
 import com.hong.jpastudy.query.NoticeListQuery
 import com.hong.jpastudy.repository.NoticeRepository
-import lombok.RequiredArgsConstructor
 import lombok.extern.slf4j.Slf4j
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -16,7 +15,6 @@ import java.util.*
 
 @Slf4j
 @Service
-@RequiredArgsConstructor
 open class NoticeEditor(val noticeRepository: NoticeRepository) : NoticeEditable {
 
     @Transactional(readOnly = true)

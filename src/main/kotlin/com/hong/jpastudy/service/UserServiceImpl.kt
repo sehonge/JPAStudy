@@ -4,14 +4,12 @@ import com.hong.jpastudy.dto.UserDto
 import com.hong.jpastudy.entity.User
 import com.hong.jpastudy.exception.NotValidUserForm
 import com.hong.jpastudy.repository.UserRepository
-import lombok.RequiredArgsConstructor
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.util.*
 
 @Service
-@RequiredArgsConstructor
 open class UserServiceImpl(val userRepository: UserRepository, val passwordEncoder: PasswordEncoder): UserService {
 
     companion object {
