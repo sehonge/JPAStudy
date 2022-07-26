@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity
 import org.springframework.http.converter.HttpMessageNotReadableException
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
+import org.springframework.web.bind.annotation.ResponseBody
+import org.springframework.web.bind.annotation.ResponseStatus
 
 @Slf4j
 @ControllerAdvice
@@ -17,7 +19,9 @@ class GlobalExceptionHandler {
     @ExceptionHandler(NoneNoticeException::class)
     fun handleNoneNoticeException(e: NoneNoticeException): ResponseEntity<ErrorResponse> {
         //TODO("add log")
-        return ResponseEntity(ErrorResponse(msg = e.toString()), HttpStatus.NOT_FOUND)
+        return ResponseEntity
+            .status(HttpStatus.NOT_FOUND)
+            .body(ErrorResponse(msg = e.toString()))
     }
 
     @ExceptionHandler(HttpMessageNotReadableException::class)
