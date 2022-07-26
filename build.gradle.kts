@@ -33,6 +33,7 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    implementation("org.junit.jupiter:junit-jupiter:5.8.1")
     compileOnly("org.projectlombok:lombok")
     runtimeOnly("mysql:mysql-connector-java")
     annotationProcessor("org.projectlombok:lombok")
