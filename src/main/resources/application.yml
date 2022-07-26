@@ -9,8 +9,10 @@ spring:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
       ddl-auto: update
-    show-sql: true
-    properties.hibernate.format_sql: true
+    properties:
+      hibernate:
+#        show-sql: true
+        format_sql: true
     database: mysql
     generate-ddl: true
 
@@ -22,13 +24,6 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
-
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: https://idp.example.com
-          jwk-set-uri: https://idp.example.com/.well-known/jwks.json
 
 logging:
   level:
